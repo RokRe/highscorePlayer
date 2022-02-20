@@ -15,9 +15,11 @@ namespace IfStatementChallenge2
             
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("Current highscore holder is {0} with {1} points", highscorePlayer, highscore);
                 Game();
                 Console.ReadKey();
+               
             }
            
             
@@ -27,20 +29,23 @@ namespace IfStatementChallenge2
             Console.WriteLine("\nNew game\nEnter your name:");
             playerName= Console.ReadLine();
             Console.WriteLine("What was your game score?");
-            score = int.Parse(Console.ReadLine());
+            if (int.TryParse(Console.ReadLine(), out score)) {
 
-            if(score > highscore)
-            {
-                highscore = score;
-                highscorePlayer = playerName;
-                scoreLevel= score < 300 ? "bad" : (score < 1000 && score >= 300) ? "good" : "godlike";
-                Console.WriteLine("New highscore holder is {0} \nHighscore is now {1} points \nYour score is {2}\n", playerName, score, scoreLevel);
+                if (score > highscore)
+                {
+                    highscore = score;
+                    highscorePlayer = playerName;
+                    scoreLevel = score < 300 ? "bad" : (score < 1000 && score >= 300) ? "good" : "godlike";
+                    Console.WriteLine("New highscore holder is {0} \nHighscore is now {1} points \nYour score is {2}\n", playerName, score, scoreLevel);
+                }
+                else
+                {
+                    scoreLevel = score < 300 ? "bad" : (score < 1000 && score >= 300) ? "good" : "godlike";
+                    Console.WriteLine("The old highscore of {0} made by {1} could not be broken \nYour score is {2}\n", highscore, highscorePlayer, scoreLevel);
+                }
+                Console.WriteLine("Press enter to start new game");
             }
-            else
-            {
-                scoreLevel = score < 300 ? "bad" : (score < 1000 && score >= 300) ? "good" : "godlike";
-                Console.WriteLine("The old highscore of {0} made by {1} could not be broken \nYour score is {2}\n", highscore, highscorePlayer,scoreLevel);
-            }
+            else Console.WriteLine("wrong value, press any key to try a new game");
         }
     }
 }
